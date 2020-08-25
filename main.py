@@ -24,9 +24,9 @@ def down_image(Threadname, video):
 def get_images(url):
     headers = {
         'Usar-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'}
-    res = requests.get(url, headers=headers, timeout=(0.5, 1))
+    res = requests.get(url, headers=headers)
     for video in res.json()['data']['list']['vlist']:
-        # 创建两个线程
+        # 创建线程
         try:
             _thread.start_new_thread(down_image, ("new-Thread", video,))
         except:
