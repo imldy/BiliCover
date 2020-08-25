@@ -62,7 +62,7 @@ def go(UP_UID, page_range_min, page_range_max):
 
 if __name__ == '__main__':
     UP_UID = 72956117  # UP主的UID
-    page_range_min = 1  # 查看UP主投稿视频页数，确定最大限制页码
+    page_range_min = 1  # 查看UP主投稿视频页数，确定最小限制页码
     page_range_max = 10  # 查看UP主投稿视频页数，确定最大限制页码
     go(UP_UID, page_range_min, page_range_max)
     while 1:
