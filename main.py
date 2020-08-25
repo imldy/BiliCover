@@ -16,9 +16,15 @@ def down_image(Threadname, video):
     global x
     file_name = video['title'].replace("\\", "").replace("/", "").replace("r", "").replace(":", "").replace("*", "") \
         .replace("?", "").replace("\"", "").replace("<", "").replace(">", "").replace("|", "")
-    urllib.request.urlretrieve("http:" + video['pic'], 'image-Thread/%s.jpg' % file_name)
-    print("{} Downloading image No.{} {}".format(Threadname, x, file_name))
-    x += 1
+    full_file_name = 'image-Thread3/%s.jpg' % file_name
+    full_url = "http:" + video['pic']
+    try:
+        urllib.request.urlretrieve(full_url, full_file_name)
+        print("{} Downloading image No.{} {}".format(Threadname, x, file_name))
+        x += 1
+    except urllib.error.ContentTooShortError:
+        print('Network conditions is not good. Reloading...')
+        down_image(Threadname, video)
 
 
 def get_images(url):
