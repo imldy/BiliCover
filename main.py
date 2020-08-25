@@ -53,7 +53,7 @@ def go(UP_UID, page_range_min, page_range_max):
     if not os.path.isdir(directory):
         print("Makeing directory……")
         os.makedirs(directory)
-    for page in range(page_range_min, page_range_max):
+    for page in range(page_range_min, page_range_max + 1):
         print("正在进行第{}页".format(page))
         url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&keyword=&order=pubdate&jsonp=jsonp' \
             .format(UP_UID, page)
