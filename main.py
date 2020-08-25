@@ -8,6 +8,8 @@ import requests
 import json
 import urllib
 import random
+import re
+import os
 
 x = 1
 
@@ -41,6 +43,15 @@ def get_images(url):
 
 
 def go(UP_UID, page_range_min, page_range_max):
+    UP_index_url = "https://space.bilibili.com/{}".format(UP_UID)
+    res = requests.get(UP_index_url)
+    UP_name = re.findall(re.compile('<title>(.*?)的个人空间 - 哔哩哔哩'), res.text)[0]
+    print(UP_name)
+    # 判断目录是否存在，不存在则创建
+    directory = "image-{}".format(UP_name)
+    if not os.path.isdir(directory):
+        print("Makeing directory……")
+        os.makedirs(directory)
     for page in range(page_range_min, page_range_max):
         print("正在进行第{}页".format(page))
         url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&keyword=&order=pubdate&jsonp=jsonp' \
