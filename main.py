@@ -16,7 +16,8 @@ def down_image(Threadname, video):
     global x
     file_name = video['title'].replace("\\", "").replace("/", "").replace("r", "").replace(":", "").replace("*", "") \
         .replace("?", "").replace("\"", "").replace("<", "").replace(">", "").replace("|", "")
-    full_file_name = 'image-Thread3/%s.jpg' % file_name
+    author = video["author"]
+    full_file_name = 'image-{}/{}.jpg'.format(author, file_name)
     full_url = "http:" + video['pic']
     try:
         urllib.request.urlretrieve(full_url, full_file_name)
