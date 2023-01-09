@@ -34,8 +34,8 @@ def down_image(Threadname, video, UP_name):
         down_image(Threadname, video, UP_name)
 
 
-def get_images(url, UP_name):
-    res = session.get(url)
+def get_images(url, params, UP_name):
+    res = session.get(url, params=params)
     for video in res.json()['data']['list']['vlist']:
         # 创建线程
         try:
@@ -59,9 +59,13 @@ def go(UP_UID, page_range_min, page_range_max):
         os.makedirs(directory)
     for page in range(page_range_min, page_range_max + 1):
         print("正在进行第{}页".format(page))
-        url = 'https://api.bilibili.com/x/space/arc/search?mid={}&ps=30&tid=0&pn={}&keyword=&order=pubdate&jsonp=jsonp' \
-            .format(UP_UID, page)
-        get_images(url, UP_name)
+        url = 'https://api.bilibili.com/x/space/arc/search'
+        video_list_req_data = {
+            "mid": UP_UID,
+            "ps": "30",
+            "pn": page
+        }
+        get_images(url, video_list_req_data, UP_name)
 
 
 if __name__ == '__main__':
