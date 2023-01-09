@@ -10,6 +10,12 @@ import time
 
 x = 1
 
+session = requests.session()
+session.headers = {
+    # "Referer": "https://bilibili.com/",
+    "user-agent": "PostmanRuntime-ApipostRuntime/1.1.0"
+}
+
 
 def down_image(Threadname, video, UP_name):
     global x
@@ -29,9 +35,7 @@ def down_image(Threadname, video, UP_name):
 
 
 def get_images(url, UP_name):
-    headers = {
-        'Usar-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36'}
-    res = requests.get(url, headers=headers)
+    res = session.get(url)
     for video in res.json()['data']['list']['vlist']:
         # 创建线程
         try:
@@ -41,9 +45,12 @@ def get_images(url, UP_name):
 
 
 def go(UP_UID, page_range_min, page_range_max):
-    UP_index_url = "https://space.bilibili.com/{}".format(UP_UID)
-    res = requests.get(UP_index_url)
-    UP_name = re.findall(re.compile('<title>(.*?)的个人空间 - 哔哩哔哩'), res.text)[0]
+    up_info_url = "https://api.bilibili.com/x/space/wbi/acc/info"
+    info_req_data = {
+        "mid": UP_UID
+    }
+    resp = session.get(up_info_url, params=info_req_data)
+    UP_name = resp.json()["data"]["name"]
     print(UP_name)
     # 判断目录是否存在，不存在则创建
     directory = "image-{}".format(UP_name)
