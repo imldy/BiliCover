@@ -17,7 +17,7 @@ def down_image(Threadname, video, UP_name):
         .replace("?", "").replace("\"", "").replace("<", "").replace(">", "").replace("|", "")
     # author = video["author"]
     full_file_name = 'image-{}/{}.jpg'.format(UP_name, file_name)
-    full_url = "http:" + video['pic']
+    full_url = video['pic']
     try:
         urllib.request.urlretrieve(full_url, full_file_name)
         print("{} Downloading image No.{} {}".format(Threadname, x, file_name))
