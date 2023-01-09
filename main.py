@@ -22,7 +22,7 @@ def down_image(Threadname, video, UP_name):
     file_name = video['title'].replace("\\", "").replace("/", "").replace("r", "").replace(":", "").replace("*", "") \
         .replace("?", "").replace("\"", "").replace("<", "").replace(">", "").replace("|", "")
     # author = video["author"]
-    full_file_name = 'image-{}/{}.jpg'.format(UP_name, file_name)
+    full_file_name = 'image-{}/{}-{}-{}.jpg'.format(UP_name, video['created'], file_name, video['bvid'])
     full_url = video['pic']
     try:
         urllib.request.urlretrieve(full_url, full_file_name)
